@@ -70,12 +70,10 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
-        /* --- Halaman Pembuka (BARU) --- */
         #splash-screen { max-width: 450px; }
         #splash-screen .title-gradient { font-size: 2.5em; }
         #splash-screen p { margin: 20px 0 30px; font-size: 1.1em; color: #666; }
 
-        /* --- Halaman 1: Ucapan Utama --- */
         #page1 { max-width: 500px; }
         #page1 .title-gradient { font-size: 2.8em; margin-bottom: 20px; }
         #page1 .logo-frame {
@@ -89,7 +87,6 @@
         #page1 .message { font-size: 1.1em; line-height: 1.6; color: #666; margin: 20px 0; }
         #page1 footer { margin-top: 40px; font-size: 0.9em; color: #888; }
 
-        /* --- Halaman 2: Galeri Foto --- */
         #page2 { max-width: 650px; }
         #page2 .title-gradient { font-size: 2.5em; margin-bottom: 15px; }
         #page2 .subtitle { font-size: 1.1em; color: #666; margin-bottom: 30px; }
@@ -102,7 +99,6 @@
         #page2 .nav-button.back { background: none; color: #777; font-weight: 400; }
         #page2 .nav-button.back:hover { color: #e91e63; box-shadow: none; transform: translateX(-3px); }
 
-        /* --- Halaman 3: Pesan Penutup --- */
         #page3 { max-width: 550px; }
         #page3 .title-gradient { font-size: 2.5em; margin-bottom: 20px; }
         #page3 .final-message { font-size: 1.1em; line-height: 1.8; color: #555; text-align: left; white-space: pre-wrap; }
@@ -131,8 +127,8 @@
     <div class="parallax-bg"></div>
 
     <!-- ELEMEN AUDIO -->
-    <audio id="background-music" src="lagu.mp3" loop></audio>
-    <audio id="click-sound" src="ea.mp3"></audio>
+    <audio id="background-music" src="lagu.mp3" loop preload="auto"></audio>
+    <audio id="click-sound" src="ea.mp3" preload="auto"></audio>
 
     <!-- HALAMAN PEMBUKA (SPLASH SCREEN) -->
     <div id="splash-screen" class="page active">
@@ -195,57 +191,78 @@ Azkha</p>
     </div>
 
     <script>
-        const bgMusic = document.getElementById('background-music' );
-        const clickSound = document.getElementById('click-sound');
-        const musicControl = document.getElementById('music-control');
-        const playIcon = document.getElementById('play-icon');
-        const pauseIcon = document.getElementById('pause-icon');
-        const startButton = document.getElementById('start-button');
+        // Tunggu hingga seluruh konten halaman (HTML, CSS ) dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Ambil semua elemen yang kita butuhkan
+            const bgMusic = document.getElementById('background-music');
+            const clickSound = document.getElementById('click-sound');
+            const musicControl = document.getElementById('music-control');
+            const playIcon = document.getElementById('play-icon');
+            const pauseIcon = document.getElementById('pause-icon');
+            const startButton = document.getElementById('start-button');
+            const allButtons = document.querySelectorAll('button, .nav-button');
 
-        // Fungsi untuk memutar efek suara klik
-        function playClickSound() {
-            clickSound.currentTime = 0; // Mulai dari awal jika diklik cepat
-            clickSound.play();
-        }
+            // Fungsi untuk memutar efek suara klik
+            function playClickSound() {
+                // Setel ulang waktu putar ke awal agar bisa diklik berulang kali dengan cepat
+                clickSound.currentTime = 0;
+                clickSound.play().catch(e => console.error("Gagal memutar suara klik:", e));
+            }
 
-        // Tambahkan event listener ke semua tombol
-        document.querySelectorAll('button, .nav-button').forEach(button => {
-            button.addEventListener('click', playClickSound);
-        });
+            // Tambahkan event listener ke semua tombol untuk efek suara klik
+            allButtons.forEach(button => {
+                button.addEventListener('click', playClickSound);
+            });
 
-        // Fungsi untuk memulai semuanya (musik dan halaman utama)
-        startButton.addEventListener('click', () => {
-            // Putar musik latar
-            bgMusic.play().then(() => {
-                // Tampilkan tombol kontrol musik
-                musicControl.classList.add('visible');
-            }).catch(error => console.log("Gagal memutar musik:", error));
+            // Fungsi utama yang dijalankan saat tombol "Buka Hadiah" diklik
+            startButton.addEventListener('click', () => {
+                console.log("Tombol 'Buka Hadiah' diklik. Mencoba memutar musik latar...");
+                
+                // Coba putar musik latar
+                const promise = bgMusic.play();
 
-            // Pindah ke halaman ucapan
-            showPage('page1');
-        });
+                if (promise !== undefined) {
+                    promise.then(() => {
+                        // Jika berhasil diputar
+                        console.log("Musik latar berhasil diputar.");
+                        musicControl.classList.add('visible'); // Tampilkan tombol kontrol musik
+                    }).catch(error => {
+                        // Jika gagal (misalnya karena aturan browser yang lebih ketat)
+                        console.error("Gagal memutar musik latar secara otomatis:", error);
+                        // Meskipun musik gagal, tetap lanjutkan ke halaman utama
+                        alert("Browser Anda mungkin memblokir audio. Coba periksa pengaturan situs.");
+                    });
+                }
+                
+                // Pindah ke halaman ucapan utama
+                showPage('page1');
+            });
 
-        // Fungsi untuk kontrol play/pause musik latar
-        musicControl.addEventListener('click', () => {
-            playClickSound(); // Mainkan juga suara klik di tombol musik
-            if (bgMusic.paused) {
-                bgMusic.play();
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'block';
-            } else {
-                bgMusic.pause();
-                playIcon.style.display = 'block';
-                pauseIcon.style.display = 'none';
+            // Fungsi untuk tombol kontrol musik (play/pause)
+            musicControl.addEventListener('click', () => {
+                if (bgMusic.paused) {
+                    bgMusic.play();
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                } else {
+                    bgMusic.pause();
+                    playIcon.style.display = 'block';
+                    pauseIcon.style.display = 'none';
+                }
+            });
+
+            // Fungsi untuk berpindah "halaman" (section)
+            window.showPage = function(pageId) {
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                const newPage = document.getElementById(pageId);
+                if (newPage) {
+                    newPage.classList.add('active');
+                }
             }
         });
-
-        // Fungsi untuk berpindah "halaman"
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            document.getElementById(pageId).classList.add('active');
-        }
     </script>
 </body>
 </html>

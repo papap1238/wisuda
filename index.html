@@ -8,9 +8,14 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;700&display=swap' );
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;700&display=swap'  );
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            height: 100%;
+            overflow: hidden; /* Mencegah scroll di body */
+        }
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -19,14 +24,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
             padding: 20px;
-            overflow: hidden;
         }
 
         .parallax-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/watercolor.png' );
+            background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/watercolor.png'  );
             background-size: cover; z-index: -1; opacity: 0.5;
         }
 
@@ -37,6 +40,7 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             padding: 40px;
             width: 100%;
+            max-height: 95vh; /* Batasi tinggi halaman */
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: absolute;
@@ -45,6 +49,12 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+        }
+        
+        .page main {
+            overflow-y: auto; /* Konten bisa di-scroll jika lebih tinggi dari ruang */
+            width: 100%;
+            flex-grow: 1; /* Main content akan mengisi ruang yang tersedia */
         }
 
         .page:not(.active) {
@@ -78,7 +88,17 @@
         }
         .nav-button.back { background: none; color: #777; font-weight: 400; }
         .nav-button.back:hover { color: #e91e63; box-shadow: none; transform: translateX(-3px); }
-        .footer-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; width: 100%; }
+        
+        .footer-nav { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-top: 20px; /* Mengurangi margin atas */
+            border-top: 1px solid #eee; 
+            padding-top: 20px; 
+            width: 100%;
+            flex-shrink: 0; /* Mencegah footer menyusut */
+        }
 
         #splash-screen {
             max-width: 500px;
@@ -115,22 +135,34 @@
         #page1 h2 { font-size: 1.8em; }
         #page1 .message { font-size: 1.1em; color: #666; }
 
-        /* --- PERBAIKAN HALAMAN 2 --- */
         #page2 { max-width: 650px; }
+        #page2 header { flex-shrink: 0; } /* Mencegah header menyusut */
         #page2 .title-gradient { 
             font-size: 2.5em;
-            margin-bottom: 30px; /* Memberi jarak antara judul dan galeri foto */
+            margin-bottom: 20px; /* Mengurangi jarak bawah */
         }
-        #page2 .photo-gallery { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
-        #page2 .photo-card { width: 200px; height: 200px; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease; }
+        #page2 .photo-gallery { 
+            display: flex; 
+            justify-content: center; 
+            gap: 15px; /* Mengurangi jarak antar gambar */
+            flex-wrap: wrap; 
+            padding: 0 10px; /* Memberi sedikit padding horizontal */
+        }
+        #page2 .photo-card { 
+            width: 200px; height: 200px; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); 
+            transition: transform 0.3s ease; 
+            flex-shrink: 0; /* Mencegah kartu menyusut */
+        }
         #page2 .photo-card:hover { transform: scale(1.05); }
-        #page2 .photo-card img { /* Gaya untuk gambar di dalam kartu */
+        #page2 .photo-card img {
             width: 100%; 
             height: 100%; 
-            object-fit: cover; /* Membuat gambar pas dan tidak gepeng */
+            object-fit: cover;
             display: block; 
         }
-        /* --- AKHIR PERBAIKAN --- */
 
         #page3, #page4, #page5 { max-width: 550px; }
         #page3 .title-gradient, #page4 .title-gradient, #page5 .title-gradient { font-size: 2.5em; }
@@ -147,11 +179,15 @@
         #music-control svg { width: 24px; height: 24px; color: #e91e63; }
 
         @media (max-width: 600px) {
-            .page { padding: 40px 25px; }
+            body { padding: 10px; }
+            .page { padding: 30px 20px; max-height: 90vh; }
             .title-gradient { font-size: 2.2em !important; }
             #page1 h2 { font-size: 1.5em; }
             #page1 .logo-frame { width: 120px; height: 120px; }
-            #page2 .photo-card { width: 220px; height: 220px; }
+            
+            /* Penyesuaian khusus untuk galeri foto di mobile */
+            #page2 .photo-gallery { gap: 10px; }
+            #page2 .photo-card { width: 180px; height: 180px; }
         }
     </style>
 </head>
@@ -179,7 +215,7 @@
         </main>
         <footer class="footer-nav">
             <div></div>
-            <button class="nav-button" onclick="showPage('page2' )">Next &rarr;</button>
+            <button class="nav-button" onclick="showPage('page2'  )">Next &rarr;</button>
         </footer>
     </div>
 
@@ -198,6 +234,9 @@
                 <div class="photo-card">
                     <img src="gambar2.jpg" alt="Kenangan Kedua">
                 </div>
+                <!-- Tambahkan lebih banyak gambar di sini jika perlu -->
+                <!-- <div class="photo-card"><img src="gambar3.jpg" alt="Kenangan Ketiga"></div> -->
+                <!-- <div class="photo-card"><img src="gambar4.jpg" alt="Kenangan Keempat"></div> -->
             </div>
         </main>
         <footer class="footer-nav">
@@ -227,7 +266,7 @@ Azkhaaa</p>
             <p class="quote-text">"Semoga semua cita-cita dan impianmu bisa tercapai satu per satu. Aku yakin dengan kerja keras, semangat, dan ketulusan yang kamu punya, semua hal yang kamu impikan akan menjadi kenyataan. Jangan pernah berhenti berjuang dan percaya pada kemampuan diri sendiri, karena aku akan selalu ada di sini untuk mendukung setiap langkahmu menuju masa depan yang lebih baik."</p>
         </main>
         <footer class="footer-nav">
-            <button class="nav-button back" onclick="showPage('page3')">&larr; Back</button>
+            <button class="nav-button back" onclick="showPage('pgae3')">&larr; Back</button>
             <button class="nav-button" onclick="showPage('page5')">Satu Halaman Lagi &rarr;</button>
         </footer>
     </div>
@@ -251,7 +290,7 @@ Azkhaaa</p>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', ( ) => {
+        document.addEventListener('DOMContentLoaded', (  ) => {
             const bgMusic = document.getElementById('background-music');
             const clickSound = document.getElementById('click-sound');
             const musicControl = document.getElementById('music-control');
@@ -274,8 +313,14 @@ Azkhaaa</p>
                 if (promise !== undefined) {
                     promise.then(() => {
                         musicControl.classList.add('visible');
+                        pauseIcon.style.display = 'block';
+                        playIcon.style.display = 'none';
                     }).catch(error => {
-                        console.error("Gagal memutar musik latar:", error);
+                        console.log("Autoplay musik diblokir oleh browser, interaksi pengguna diperlukan.");
+                        // Tombol musik tetap ditampilkan agar pengguna bisa memutar manual
+                        musicControl.classList.add('visible');
+                        pauseIcon.style.display = 'none';
+                        playIcon.style.display = 'block';
                     });
                 }
                 showPage('page1');

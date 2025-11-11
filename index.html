@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untuk Faiza</title>
+    <title>Sebuah Hadiah untuk Faiza</title>
+    
+    <!-- FAVICON LOGO LOVE (BARU) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;700&display=swap' );
         
@@ -69,54 +73,43 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
+        .nav-button.back { background: none; color: #777; font-weight: 400; }
+        .nav-button.back:hover { color: #e91e63; box-shadow: none; transform: translateX(-3px); }
+        .footer-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; }
 
-        #splash-screen { max-width: 450px; }
-        #splash-screen .title-gradient { font-size: 2.5em; }
-        #splash-screen p { margin: 20px 0 30px; font-size: 1.1em; color: #666; }
+        /* --- Gaya Halaman Spesifik --- */
+        #splash-screen, #page1, #page2, #page3, #page4, #page5 { max-width: 650px; }
+        #page1, #splash-screen { max-width: 500px; }
 
-        #page1 { max-width: 500px; }
-        #page1 .title-gradient { font-size: 2.8em; margin-bottom: 20px; }
-        #page1 .logo-frame {
-            width: 150px; height: 150px; border-radius: 50%; margin: 20px auto;
-            background: linear-gradient(45deg, #e91e63, #9c27b0);
-            border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            display: flex; justify-content: center; align-items: center; color: white;
-        }
+        #page1 .title-gradient, #splash-screen .title-gradient { font-size: 2.8em; }
+        #page1 .logo-frame { width: 150px; height: 150px; border-radius: 50%; margin: 20px auto; background: linear-gradient(45deg, #e91e63, #9c27b0); border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); display: flex; justify-content: center; align-items: center; color: white; }
         #page1 .logo-frame svg { width: 60%; height: 60%; }
-        #page1 h2 { font-size: 1.8em; font-weight: 700; color: #444; margin-bottom: 10px; }
-        #page1 .message { font-size: 1.1em; line-height: 1.6; color: #666; margin: 20px 0; }
-        #page1 footer { margin-top: 40px; font-size: 0.9em; color: #888; }
+        #page1 h2 { font-size: 1.8em; }
+        #page1 .message, #splash-screen p { font-size: 1.1em; color: #666; }
 
-        #page2 { max-width: 650px; }
-        #page2 .title-gradient { font-size: 2.5em; margin-bottom: 15px; }
-        #page2 .subtitle { font-size: 1.1em; color: #666; margin-bottom: 30px; }
+        #page2 .title-gradient { font-size: 2.5em; }
         #page2 .photo-gallery { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
         #page2 .photo-card { width: 200px; height: 200px; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease; }
         #page2 .photo-card:hover { transform: scale(1.05); }
         #page2 .photo-card img, #page2 .photo-card .placeholder { width: 100%; height: 100%; object-fit: cover; display: block; }
         #page2 .photo-card .placeholder { background-color: #e0e0e0; display: flex; justify-content: center; align-items: center; color: #aaa; }
-        #page2 .footer-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px; }
-        #page2 .nav-button.back { background: none; color: #777; font-weight: 400; }
-        #page2 .nav-button.back:hover { color: #e91e63; box-shadow: none; transform: translateX(-3px); }
 
-        #page3 { max-width: 550px; }
-        #page3 .title-gradient { font-size: 2.5em; margin-bottom: 20px; }
-        #page3 .final-message { font-size: 1.1em; line-height: 1.8; color: #555; text-align: left; white-space: pre-wrap; }
-        #page3 .signature { margin-top: 30px; font-size: 1.2em; font-style: italic; color: #e91e63; }
-        #page3 .footer-nav { margin-top: 40px; text-align: center; }
+        #page3 .title-gradient, #page4 .title-gradient, #page5 .title-gradient { font-size: 2.5em; }
+        #page3 .final-message, #page4 .quote-text { font-size: 1.2em; line-height: 1.8; color: #555; font-style: italic; }
+        #page3 .signature, #page4 .quote-author { margin-top: 20px; font-size: 1.1em; color: #333; font-style: normal; }
 
-        #music-control {
-            position: fixed; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px);
-            width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 1000;
-            opacity: 0; transition: opacity 0.5s; pointer-events: none;
-        }
+        #page5 .heart { font-size: 80px; color: #e91e63; animation: beat 1.5s infinite; }
+        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        #page5 .final-words { font-size: 1.5em; margin-top: 20px; color: #555; }
+        #page5 .footer-nav { justify-content: center; } /* Tombol di tengah */
+
+        #music-control { position: fixed; bottom: 20px; right: 20px; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 1000; opacity: 0; transition: opacity 0.5s; pointer-events: none; }
         #music-control.visible { opacity: 1; pointer-events: auto; }
         #music-control svg { width: 24px; height: 24px; color: #e91e63; }
 
         @media (max-width: 600px) {
             .page { padding: 30px 25px; }
-            #page1 .title-gradient, #splash-screen .title-gradient { font-size: 2.2em; }
+            .title-gradient { font-size: 2.2em !important; }
             #page1 h2 { font-size: 1.5em; }
             #page1 .logo-frame { width: 120px; height: 120px; }
             #page2 .photo-card { width: 220px; height: 220px; }
@@ -126,35 +119,33 @@
 <body>
     <div class="parallax-bg"></div>
 
-    <!-- ELEMEN AUDIO -->
     <audio id="background-music" src="lagu.mp3" loop preload="auto"></audio>
     <audio id="click-sound" src="ea.mp3" preload="auto"></audio>
 
     <!-- HALAMAN PEMBUKA (SPLASH SCREEN) -->
     <div id="splash-screen" class="page active">
         <h1 class="title-gradient">Hai, Faiza!</h1>
-        <p>dari azkhaa , dibaca yaaa</p>
+        <p>Ada hadiah spesial untukmu dari Azkha.</p>
         <button id="start-button" class="button">Buka Hadiah</button>
     </div>
 
-    <!-- HALAMAN 1 (Tersembunyi) -->
+    <!-- HALAMAN 1: UCAPAN SELAMAT -->
     <div id="page1" class="page">
         <header><h1 class="title-gradient">Congratulations, Graduate!</h1></header>
         <main>
             <div class="logo-frame"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9L12 15L23 9L12 3ZM5 10.17L12 13.5L19 10.17L12 6.83L5 10.17ZM12 16.5L3 11.5V17.5L12 22.5L21 17.5V11.5L12 16.5Z"/></svg></div>
             <h2>Faiza Nurul Maulani</h2>
-            <p class="message">Satu babak luar biasa telah berakhir, dan petualangan baru yang lebih menakjubkan menantimu. Selamat atas semua pencapaianmu yang gemilang!</p>
-            <button class="button" onclick="showPage('page2' )"><span>Pesan Spesial Untukmu</span> &rarr;</button>
+            <p class="message">Selamat atas semua pencapaianmu yang gemilang!</p>
         </main>
-        <footer><p>A special gift from: <strong>Azkha Brilliant Firdaus</strong></p></footer>
+        <footer class="footer-nav">
+            <div></div> <!-- Elemen kosong untuk mendorong tombol ke kanan -->
+            <button class="nav-button" onclick="showPage('page2' )">Next &rarr;</button>
+        </footer>
     </div>
 
-    <!-- HALAMAN 2 (Tersembunyi) -->
+    <!-- HALAMAN 2: GALERI FOTO -->
     <div id="page2" class="page">
-        <header>
-            <h1 class="title-gradient">Our Special Moments</h1>
-            <p class="subtitle">Beberapa kenangan yang terekam dalam perjalanan kita.</p>
-        </header>
+        <header><h1 class="title-gradient">Our Special Moments</h1></header>
         <main>
             <div class="photo-gallery">
                 <div class="photo-card"><div class="placeholder">Foto 1</div></div>
@@ -167,34 +158,53 @@
         </footer>
     </div>
 
-    <!-- HALAMAN 3 (Tersembunyi) -->
+    <!-- HALAMAN 3: PESAN PERSONAL -->
     <div id="page3" class="page">
-        <header><h1 class="title-gradient">Pesan Terakhir Dariku</h1></header>
+        <header><h1 class="title-gradient">Pesan Dariku</h1></header>
         <main>
-            <p class="final-message">Faiza,
-
-Melihatmu sampai di titik ini adalah sebuah kebahagiaan yang tak ternilai. Kamu hebat, kuat, dan luar biasa. Jangan pernah ragu dengan kemampuanmu sendiri.
-
-Apapun jalan yang akan kamu pilih setelah ini, aku akan selalu jadi pendukung nomor satumu. Teruslah bersinar, karena kamu adalah bintangnya.</p>
+            <p class="final-message">Melihatmu sampai di titik ini adalah sebuah kebahagiaan. Kamu hebat, kuat, dan luar biasa. Apapun jalan yang akan kamu pilih, aku akan selalu jadi pendukung nomor satumu.</p>
             <p class="signature">Selalu bangga,  
 Azkha</p>
         </main>
         <footer class="footer-nav">
-            <button class="nav-button back" onclick="showPage('page2')">&larr; Lihat Foto Lagi</button>
+            <button class="nav-button back" onclick="showPage('page2')">&larr; Back</button>
+            <button class="nav-button" onclick="showPage('page4')">Next &rarr;</button>
         </footer>
     </div>
 
-    <!-- Tombol untuk Play/Pause Musik -->
+    <!-- HALAMAN 4: KUTIPAN INSPIRATIF -->
+    <div id="page4" class="page">
+        <header><h1 class="title-gradient">Untuk Awal yang Baru</h1></header>
+        <main>
+            <p class="quote-text">"Kelulusan bukanlah akhir; itu adalah awal. Awal dari semua hal yang kamu impikan dan perjuangkan."</p>
+            <p class="quote-author">- Anonymous</p>
+        </main>
+        <footer class="footer-nav">
+            <button class="nav-button back" onclick="showPage('page3')">&larr; Back</button>
+            <button class="nav-button" onclick="showPage('page5')">Satu Halaman Lagi &rarr;</button>
+        </footer>
+    </div>
+
+    <!-- HALAMAN 5: PENUTUP FINAL -->
+    <div id="page5" class="page">
+        <header><h1 class="title-gradient">Dan Akhir Kata...</h1></header>
+        <main>
+            <div class="heart">&hearts;</div>
+            <p class="final-words">I Love You, Faiza!</p>
+        </main>
+        <footer class="footer-nav">
+            <button class="nav-button back" onclick="showPage('page4')">&larr; Back</button>
+        </footer>
+    </div>
+
+    <!-- Tombol Kontrol Musik -->
     <div id="music-control">
         <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M8 5v14l11-7z"></path></svg>
         <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
     </div>
 
     <script>
-        // Tunggu hingga seluruh konten halaman (HTML, CSS ) dimuat
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // Ambil semua elemen yang kita butuhkan
+        document.addEventListener('DOMContentLoaded', ( ) => {
             const bgMusic = document.getElementById('background-music');
             const clickSound = document.getElementById('click-sound');
             const musicControl = document.getElementById('music-control');
@@ -203,43 +213,27 @@ Azkha</p>
             const startButton = document.getElementById('start-button');
             const allButtons = document.querySelectorAll('button, .nav-button');
 
-            // Fungsi untuk memutar efek suara klik
             function playClickSound() {
-                // Setel ulang waktu putar ke awal agar bisa diklik berulang kali dengan cepat
                 clickSound.currentTime = 0;
                 clickSound.play().catch(e => console.error("Gagal memutar suara klik:", e));
             }
 
-            // Tambahkan event listener ke semua tombol untuk efek suara klik
             allButtons.forEach(button => {
                 button.addEventListener('click', playClickSound);
             });
 
-            // Fungsi utama yang dijalankan saat tombol "Buka Hadiah" diklik
             startButton.addEventListener('click', () => {
-                console.log("Tombol 'Buka Hadiah' diklik. Mencoba memutar musik latar...");
-                
-                // Coba putar musik latar
                 const promise = bgMusic.play();
-
                 if (promise !== undefined) {
                     promise.then(() => {
-                        // Jika berhasil diputar
-                        console.log("Musik latar berhasil diputar.");
-                        musicControl.classList.add('visible'); // Tampilkan tombol kontrol musik
+                        musicControl.classList.add('visible');
                     }).catch(error => {
-                        // Jika gagal (misalnya karena aturan browser yang lebih ketat)
-                        console.error("Gagal memutar musik latar secara otomatis:", error);
-                        // Meskipun musik gagal, tetap lanjutkan ke halaman utama
-                        alert("Browser Anda mungkin memblokir audio. Coba periksa pengaturan situs.");
+                        console.error("Gagal memutar musik latar:", error);
                     });
                 }
-                
-                // Pindah ke halaman ucapan utama
                 showPage('page1');
             });
 
-            // Fungsi untuk tombol kontrol musik (play/pause)
             musicControl.addEventListener('click', () => {
                 if (bgMusic.paused) {
                     bgMusic.play();
@@ -252,7 +246,6 @@ Azkha</p>
                 }
             });
 
-            // Fungsi untuk berpindah "halaman" (section)
             window.showPage = function(pageId) {
                 document.querySelectorAll('.page').forEach(page => {
                     page.classList.remove('active');

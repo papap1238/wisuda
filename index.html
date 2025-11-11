@@ -5,15 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selamat Wisuda, Faiza!</title>
     <style>
-        /* --- Import Font dari Google Fonts --- */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;700&display=swap' );
-
-        /* --- Reset & Pengaturan Dasar --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -23,191 +17,254 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px; /* Memberi jarak di layar kecil */
+            padding: 20px;
+            overflow: hidden; /* Mencegah scroll yang tidak perlu */
         }
 
-        /* --- Latar Belakang Parallax (Efek Tetap) --- */
         .parallax-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/watercolor.png' ); /* Pola cat air lembut */
-            background-size: cover;
-            z-index: -1;
-            opacity: 0.5;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/watercolor.png' );
+            background-size: cover; z-index: -1; opacity: 0.5;
         }
 
-        /* --- Kontainer Utama --- */
-        .container {
+        /* --- Kontainer untuk setiap "halaman" --- */
+        .page {
             background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px); /* Efek blur pada latar belakang */
+            backdrop-filter: blur(10px);
             border-radius: 15px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             padding: 40px;
-            max-width: 500px;
             width: 100%;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            position: absolute;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-        /* --- Judul dengan Gradien --- */
+        /* Sembunyikan semua halaman secara default */
+        .page:not(.active) {
+            opacity: 0;
+            pointer-events: none; /* Tidak bisa diklik saat tersembunyi */
+            transform: translateY(20px);
+        }
+        
+        /* Tampilkan halaman yang aktif */
+        .page.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Gaya Umum --- */
         .title-gradient {
             font-family: 'Playfair Display', serif;
-            font-size: 2.8em;
             background: linear-gradient(45deg, #e91e63, #9c27b0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
-            margin-bottom: 20px;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; text-fill-color: transparent;
         }
-
-        /* --- Bingkai Logo Wisuda --- */
-        .logo-frame {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%; /* Membuat bingkai menjadi lingkaran */
-            margin: 20px auto;
-            background: linear-gradient(45deg, #e91e63, #9c27b0); /* Gradien yang sama dengan judul */
-            border: 5px solid #fff;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white; /* Warna ikon SVG di dalam */
-        }
-
-        .logo-frame svg {
-            width: 60%; /* Ukuran ikon di dalam bingkai */
-            height: 60%;
-        }
-
-        /* --- Nama & Pesan --- */
-        h2 {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: #444;
-            margin-bottom: 10px;
-        }
-
-        .message {
-            font-size: 1.1em;
-            line-height: 1.6;
-            color: #666;
-            margin: 20px 0;
-        }
-
-        /* --- Tombol --- */
-        .button {
+        .button, .nav-button {
             display: inline-block;
             background: linear-gradient(45deg, #e91e63, #9c27b0);
-            color: #fff;
-            padding: 12px 25px;
-            border-radius: 50px; /* Tombol berbentuk kapsul */
-            text-decoration: none;
-            font-weight: 700;
-            margin-top: 20px;
+            color: #fff; padding: 12px 25px; border-radius: 50px;
+            text-decoration: none; font-weight: 700;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer; border: none;
         }
-
-        .button:hover {
+        .button:hover, .nav-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
-        .button span {
-            margin-right: 5px;
+        /* --- Halaman 1: Ucapan Utama --- */
+        #page1 { max-width: 500px; }
+        #page1 .title-gradient { font-size: 2.8em; margin-bottom: 20px; }
+        #page1 .logo-frame {
+            width: 150px; height: 150px; border-radius: 50%; margin: 20px auto;
+            background: linear-gradient(45deg, #e91e63, #9c27b0);
+            border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex; justify-content: center; align-items: center; color: white;
         }
+        #page1 .logo-frame svg { width: 60%; height: 60%; }
+        #page1 h2 { font-size: 1.8em; font-weight: 700; color: #444; margin-bottom: 10px; }
+        #page1 .message { font-size: 1.1em; line-height: 1.6; color: #666; margin: 20px 0; }
+        #page1 footer { margin-top: 40px; font-size: 0.9em; color: #888; }
 
-        /* --- Footer --- */
-        footer {
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #888;
+        /* --- Halaman 2: Galeri Foto --- */
+        #page2 { max-width: 650px; }
+        #page2 .title-gradient { font-size: 2.5em; margin-bottom: 15px; }
+        #page2 .subtitle { font-size: 1.1em; color: #666; margin-bottom: 30px; }
+        #page2 .photo-gallery {
+            display: flex; justify-content: center; gap: 20px;
+            flex-wrap: wrap; margin-bottom: 40px;
         }
-
-        /* --- Animasi Fade-in --- */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        #page2 .photo-card {
+            width: 200px; height: 200px; border-radius: 10px; overflow: hidden;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
-
-        .fade-in { animation: fadeIn 0.8s ease-out forwards; }
-        .fade-in-delay-1 { animation: fadeIn 0.8s 0.3s ease-out forwards; }
-        .fade-in-delay-2 { animation: fadeIn 0.8s 0.6s ease-out forwards; }
-        .fade-in-delay-3 { animation: fadeIn 0.8s 0.9s ease-out forwards; }
-        .fade-in-delay-4 { animation: fadeIn 0.8s 1.2s ease-out forwards; }
-        .fade-in-delay-5 { animation: fadeIn 0.8s 1.5s ease-out forwards; }
-
-        /* Atur elemen agar tidak terlihat sebelum animasi dimulai */
-        .fade-in, .fade-in-delay-1, .fade-in-delay-2, .fade-in-delay-3, .fade-in-delay-4, .fade-in-delay-5 {
-            opacity: 0;
+        #page2 .photo-card:hover { transform: scale(1.05); }
+        #page2 .photo-card .placeholder {
+            width: 100%; height: 100%; background-color: #e0e0e0;
+            display: flex; justify-content: center; align-items: center; color: #aaa;
         }
+        #page2 .footer-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px;
+        }
+        #page2 .nav-button.back { background: none; color: #777; font-weight: 400; }
+        #page2 .nav-button.back:hover { color: #e91e63; box-shadow: none; transform: translateX(-3px); }
 
-        /* --- Media Query untuk Responsif di HP --- */
+        /* --- Halaman 3: Pesan Penutup (Contoh) --- */
+        #page3 { max-width: 550px; }
+        #page3 .title-gradient { font-size: 2.5em; margin-bottom: 20px; }
+        #page3 .final-message { font-size: 1.1em; line-height: 1.8; color: #555; text-align: left; }
+        #page3 .signature { margin-top: 30px; font-size: 1.2em; font-style: italic; color: #e91e63; }
+        #page3 .footer-nav { margin-top: 40px; text-align: center; }
+
+        /* --- Tombol Kontrol Musik --- */
+        #music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        #music-control svg { width: 24px; height: 24px; color: #e91e63; }
+
+        /* --- Responsif --- */
         @media (max-width: 600px) {
-            body {
-                padding: 15px; /* Kurangi padding di layar kecil */
-            }
-
-            .container {
-                padding: 30px 25px; /* Kurangi padding di dalam kontainer */
-            }
-
-            .title-gradient {
-                font-size: 2.2em; /* Kecilkan ukuran judul */
-            }
-
-            h2 {
-                font-size: 1.5em;
-            }
-
-            .logo-frame {
-                width: 120px;
-                height: 120px;
-            }
-
-            .message {
-                font-size: 1em;
-            }
+            .page { padding: 30px 25px; }
+            #page1 .title-gradient { font-size: 2.2em; }
+            #page1 h2 { font-size: 1.5em; }
+            #page1 .logo-frame { width: 120px; height: 120px; }
+            #page2 .photo-card { width: 220px; height: 220px; }
         }
     </style>
 </head>
 <body>
     <div class="parallax-bg"></div>
-    <div class="container">
-        <header class="fade-in">
-            <h1 class="title-gradient">Congratulations, Graduate!</h1>
-        </header>
-        
+
+    <!-- ELEMEN AUDIO (akan terus berjalan) -->
+    <!-- Ganti "lagu.mp3" dengan nama file musik Anda -->
+    <audio id="background-music" src="lagu.mp3" loop></audio>
+
+    <!-- Tombol untuk Play/Pause Musik -->
+    <div id="music-control">
+        <!-- Ikon Play (default) -->
+        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+        <!-- Ikon Pause (tersembunyi ) -->
+        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>
+    </div>
+
+    <!-- HALAMAN 1 (Aktif saat pertama dibuka ) -->
+    <div id="page1" class="page active">
+        <header><h1 class="title-gradient">Congratulations, Graduate!</h1></header>
         <main>
-            <!-- KOLOM UNTUK LOGO WISUDA -->
-            <div class="logo-frame fade-in-delay-1">
-                <!-- Ikon Toga Wisuda (SVG) -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 3L1 9L12 15L23 9L12 3ZM5 10.17L12 13.5L19 10.17L12 6.83L5 10.17ZM12 16.5L3 11.5V17.5L12 22.5L21 17.5V11.5L12 16.5Z"/>
-                </svg>
-            </div>
-            
-            <h2 class="fade-in-delay-2">Faiza Nurul Maulani</h2>
-            
-            <p class="message fade-in-delay-3">
-                Satu babak luar biasa telah berakhir, dan petualangan baru yang lebih menakjubkan menantimu. Selamat atas semua pencapaianmu yang gemilang!
-            </p>
-            
-            <nav class="fade-in-delay-4">
-                <!-- Pastikan Anda memiliki file halaman2.html -->
-                <a href="halaman2.html" class="button">
-                    <span>Pesan Spesial Untukmu</span> &rarr;
-                </a>
-            </nav>
+            <div class="logo-frame"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9L12 15L23 9L12 3ZM5 10.17L12 13.5L19 10.17L12 6.83L5 10.17ZM12 16.5L3 11.5V17.5L12 22.5L21 17.5V11.5L12 16.5Z"/></svg></div>
+            <h2>Faiza Nurul Maulani</h2>
+            <p class="message">Satu babak luar biasa telah berakhir, dan petualangan baru yang lebih menakjubkan menantimu. Selamat atas semua pencapaianmu yang gemilang!</p>
+            <button class="button" onclick="showPage('page2' )"><span>Pesan Spesial Untukmu</span> &rarr;</button>
         </main>
-        
-        <footer class="fade-in-delay-5">
-            <p>A special gift from: <strong>Azkha Brilliant Firdaus</strong></p>
+        <footer><p>A special gift from: <strong>Azkha Brilliant Firdaus</strong></p></footer>
+    </div>
+
+    <!-- HALAMAN 2 (Tersembunyi) -->
+    <div id="page2" class="page">
+        <header>
+            <h1 class="title-gradient">Our Special Moments</h1>
+            <p class="subtitle">Beberapa kenangan yang terekam dalam perjalanan kita.</p>
+        </header>
+        <main>
+            <div class="photo-gallery">
+                <div class="photo-card"><div class="placeholder">Foto 1</div></div>
+                <div class="photo-card"><div class="placeholder">Foto 2</div></div>
+            </div>
+        </main>
+        <footer class="footer-nav">
+            <button class="nav-button back" onclick="showPage('page1')">&larr; Back</button>
+            <button class="nav-button" onclick="showPage('page3')">Next &rarr;</button>
         </footer>
     </div>
+
+    <!-- HALAMAN 3 (Tersembunyi) -->
+    <div id="page3" class="page">
+        <header><h1 class="title-gradient">Pesan Terakhir Dariku</h1></header>
+        <main>
+            <p class="final-message">
+                Faiza,
+                  
+  
+
+                Melihatmu sampai di titik ini adalah sebuah kebahagiaan yang tak ternilai. Kamu hebat, kuat, dan luar biasa. Jangan pernah ragu dengan kemampuanmu sendiri.
+                  
+  
+
+                Apapun jalan yang akan kamu pilih setelah ini, aku akan selalu jadi pendukung nomor satumu. Teruslah bersinar, karena kamu adalah bintangnya.
+            </p>
+            <p class="signature">Selalu bangga,  
+Azkha</p>
+        </main>
+        <footer class="footer-nav">
+            <button class="nav-button back" onclick="showPage('page2')">&larr; Lihat Foto Lagi</button>
+        </footer>
+    </div>
+
+    <script>
+        const audio = document.getElementById('background-music');
+        const musicControl = document.getElementById('music-control');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        let isPlaying = false;
+
+        // Fungsi untuk memutar musik (dipicu oleh interaksi pertama)
+        function playMusic() {
+            if (!isPlaying) {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                }).catch(error => {
+                    // Browser modern memblokir autoplay, jadi kita tunggu interaksi
+                    console.log("Autoplay diblokir. Musik akan diputar setelah klik pertama.");
+                });
+            }
+        }
+
+        // Kontrol Play/Pause manual
+        musicControl.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            } else {
+                audio.play();
+                isPlaying = true;
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            }
+        });
+
+        // Coba putar musik saat pengguna mengklik apa saja untuk pertama kali
+        document.body.addEventListener('click', playMusic, { once: true });
+
+        // Fungsi untuk berpindah "halaman"
+        function showPage(pageId) {
+            // Sembunyikan semua halaman
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            // Tampilkan halaman yang dipilih
+            document.getElementById(pageId).classList.add('active');
+        }
+    </script>
 </body>
 </html>

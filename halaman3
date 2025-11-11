@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Berikutnya!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="parallax-bg-adventure"></div>
+    <div class="container">
+        <header class="fade-in">
+            <h1 class="title-gradient">The Next Summit</h1>
+        </header>
+        
+        <main>
+            <p class="message fade-in-delay-1">
+                Wisuda bukanlah garis finis, melainkan puncak pertama yang berhasil kamu taklukkan. Sekarang, saatnya kita merayakannya dengan menaklukkan puncak yang sesungguhnya.
+            </p>
+            
+            <div class="invite-box fade-in-delay-2">
+                <h2>Ayok, next kita ndaki bareng ya!</h2>
+            </div>
+            
+            <nav class="fade-in-delay-3">
+                <a href="halaman2.html" class="button-secondary">&larr; Lihat Pesan Lagi</a>
+            </nav>
+        </main>
+        
+        <footer class="fade-in-delay-4">
+            <p>A special gift from: <strong>Azkha Brilliant Firdaus</strong></p>
+        </footer>
+    </div>
+</body>
+</html>
